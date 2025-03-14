@@ -60,21 +60,17 @@ export default function Home() {
         >
           <div
             id="youtube-player"
-            className="w-full h-full"
+            className="absolute inset-0"
             style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
               width: '100%',
-              height: '100%',
+              height: '100%'
             }}
           />
         </div>
       </div>
       <button 
         onClick={toggleSound}
-        className="absolute top-12 right-12 z-10 cursor-pointer"
+        className="absolute top-12 right-12 z-20 cursor-pointer"
       >
         <div 
           className="pulse-animation bg-pink-400 text-white px-4 py-2 rounded-full font-semibold shadow-lg flex items-center gap-2"
@@ -83,7 +79,7 @@ export default function Home() {
           {isMuted ? '🔊 Sound On' : '🔇 Sound Off'}
         </div>
       </button>
-      <div className="absolute bottom-16 left-16 z-10">
+      <div className="absolute bottom-16 left-16 z-20">
         <h1 className="text-white text-4xl font-bold drop-shadow-lg">
           NZ Business Listings
         </h1>

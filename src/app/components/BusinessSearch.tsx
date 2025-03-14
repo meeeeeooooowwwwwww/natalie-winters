@@ -48,7 +48,7 @@ export default function BusinessSearch() {
         }}>
           <input
             type="text"
-            placeholder="Search businesses..."
+            placeholder="Search NZ Business..."
             className="w-full px-4 py-2 rounded-full bg-white/10 text-white border border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-400"
             value={filters.query}
             onChange={(e) => setFilters({ ...filters, query: e.target.value })}
@@ -88,7 +88,7 @@ export default function BusinessSearch() {
           </div>
         )
       ) : (
-        <div className="text-white text-center">Enter a search term to find businesses</div>
+        <div></div>
       )}
 
       {/* Pagination - only show when there are results and a search query */}

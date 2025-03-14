@@ -12,12 +12,21 @@ export const metadata: Metadata = {
     siteName: 'BADDIE BADDIE BADDIE',
     locale: 'en_US',
     type: 'website',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'BADDIE BADDIE BADDIE IMMA LIL BADDIE'
+      }
+    ]
   },
   twitter: {
     card: 'summary_large_image',
     title: 'BADDIE BADDIE BADDIE IMMA LIL BADDIE',
     description: 'BADDIE BADDIE BADDIE IMMA LIL BADDIE',
     creator: '@nataliegwinters',
+    images: ['/og-image.jpg']
   },
   icons: {
     icon: [

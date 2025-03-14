@@ -1,20 +1,16 @@
 import { Business, SearchFilters, SearchResults } from '../types/business';
 
-// Mock data for development - replace with actual data in production
-const businesses: Business[] = [
-  {
-    id: "1",
-    name: "Example Business",
-    address: "123 Example St",
-    city: "Example City",
-    region: "Example Region",
-    postalCode: "1234",
-    coordinates: {
-      latitude: -41.2865,
-      longitude: 174.7762
-    }
+// We'll load the data using a dynamic import
+async function loadBusinessData(): Promise<Business[]> {
+  try {
+    const response = await fetch('/nz-listings.json');
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error loading business data:', error);
+    return [];
   }
-];
+}
 
 const ITEMS_PER_PAGE = 20;
 
@@ -35,7 +31,8 @@ export async function searchBusinesses(
   page: number = 1,
   userLocation?: { latitude: number; longitude: number }
 ): Promise<SearchResults> {
-  // In production, this would be a server-side API call
+  const businesses = await loadBusinessData();
+  
   let results = businesses.filter(business => {
     // Basic text search
     const searchText = `${business.name} ${business.description || ''} ${business.category || ''} ${business.city} ${business.region}`.toLowerCase();
@@ -46,7 +43,7 @@ export async function searchBusinesses(
     }
 
     // Region filter
-    if (filters.region && business.region.toLowerCase() !== filters.region.toLowerCase()) {
+    if (filters.region && business.region?.toLowerCase() !== filters.region.toLowerCase()) {
       return false;
     }
 

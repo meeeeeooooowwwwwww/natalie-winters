@@ -43,13 +43,24 @@ export default function BusinessSearch() {
     <div className="w-full max-w-6xl mx-auto px-4 py-8">
       {/* Search Input */}
       <div className="mb-8">
-        <input
-          type="text"
-          placeholder="Search businesses..."
-          className="w-full px-4 py-2 rounded-full bg-white/10 text-white border border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-400"
-          value={filters.query}
-          onChange={(e) => setFilters({ ...filters, query: e.target.value })}
-        />
+        <form onSubmit={(e) => {
+          e.preventDefault();
+          setPage(1); // Reset to first page on new search
+        }}>
+          <input
+            type="text"
+            placeholder="Search businesses..."
+            className="w-full px-4 py-2 rounded-full bg-white/10 text-white border border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-400"
+            value={filters.query}
+            onChange={(e) => setFilters({ ...filters, query: e.target.value })}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                setPage(1); // Reset to first page on new search
+              }
+            }}
+          />
+        </form>
       </div>
 
       {/* Filters */}

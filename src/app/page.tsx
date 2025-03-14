@@ -88,7 +88,7 @@ export default function Home() {
 
   return (
     <main className="h-screen w-screen overflow-hidden relative bg-black">
-      <div className="absolute inset-0 w-full h-[calc(100%-80px)] sm:h-full p-2">
+      <div className="absolute inset-0 w-full h-[calc(100%-90px)] sm:h-full p-2">
         <div 
           className="relative w-full h-full border-8 border-pink-400 rounded-lg overflow-hidden"
           style={{
@@ -99,7 +99,7 @@ export default function Home() {
         >
           <div
             id="youtube-player"
-            className="absolute inset-0 w-full h-full"
+            className="absolute inset-0 w-full h-full pb-16 sm:pb-0"
             style={{
               position: 'absolute',
               width: '100%',
@@ -110,12 +110,12 @@ export default function Home() {
         </div>
       </div>
       <div className="absolute bottom-[120px] sm:bottom-0 left-0 right-0 z-20 flex flex-col items-center justify-center w-full sm:pb-8 pb-0">
-        <h1 className="glitch-text text-white text-6xl font-bold drop-shadow-lg text-center w-full px-4">
+        <h1 className="glitch-text text-white text-5xl sm:text-6xl font-bold drop-shadow-lg text-center w-full px-4">
           Coming Soon
         </h1>
         <button 
           onClick={toggleSound}
-          className="cursor-pointer sm:mt-8 mt-4"
+          className="cursor-pointer sm:mt-8 mt-2"
         >
           <div 
             className="pulse-animation bg-pink-400 text-white px-4 py-2 rounded-full font-semibold shadow-lg flex items-center gap-2"

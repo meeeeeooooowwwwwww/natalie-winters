@@ -2,8 +2,23 @@ import './globals.css?v=5'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'NZ Business Listings',
-  description: 'New Zealand Business Listings - Coming Soon',
+  title: 'BADDIE BADDIE BADDIE IMMA LIL BADDIE',
+  description: 'BADDIE BADDIE BADDIE IMMA LIL BADDIE',
+  metadataBase: new URL('https://business.nataliegwinters.com'),
+  openGraph: {
+    title: 'BADDIE BADDIE BADDIE IMMA LIL BADDIE',
+    description: 'BADDIE BADDIE BADDIE IMMA LIL BADDIE',
+    url: 'https://business.nataliegwinters.com',
+    siteName: 'BADDIE BADDIE BADDIE',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'BADDIE BADDIE BADDIE IMMA LIL BADDIE',
+    description: 'BADDIE BADDIE BADDIE IMMA LIL BADDIE',
+    creator: '@nataliegwinters',
+  },
   icons: {
     icon: [
       {
@@ -20,6 +35,16 @@ export const metadata: Metadata = {
       url: '/apple-icon.png',
       sizes: '180x180',
     },
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: 'https://business.nataliegwinters.com'
+  },
+  verification: {
+    google: 'google-site-verification=BADDIE',
   },
 }
 

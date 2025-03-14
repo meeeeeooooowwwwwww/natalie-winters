@@ -3,8 +3,7 @@ import { headers } from 'next/headers';
 import path from 'path';
 import fs from 'fs';
 
-// Set dynamic rendering for this route
-export const dynamic = 'force-dynamic';
+export const runtime = 'edge';
 
 // Simple in-memory rate limiting
 const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
@@ -62,8 +61,10 @@ export async function GET(request: Request) {
   }
 
   try {
-    const filePath = path.join(process.cwd(), 'src/app/data/nz-listings.json');
-    const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    // In edge runtime, we'll use KV or D1 for data storage
+    // For now, we'll use the JSON file directly
+    const response = await fetch('https://raw.githubusercontent.com/meeeeeooooowwwwwww/nz-business-listings/main/src/app/data/nz-listings.json');
+    const data = await response.json();
 
     return new NextResponse(JSON.stringify(data), {
       headers: {

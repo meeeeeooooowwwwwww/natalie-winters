@@ -5,7 +5,7 @@ const ITEMS_PER_PAGE = 20;
 // Function to load business data
 async function loadBusinessData(): Promise<Business[]> {
   try {
-    const response = await fetch('/api/businesses');
+    const response = await fetch('/nz-listings.json');
     if (!response.ok) {
       throw new Error('Failed to fetch business data');
     }

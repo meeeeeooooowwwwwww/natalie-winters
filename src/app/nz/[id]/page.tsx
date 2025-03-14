@@ -1,22 +1,19 @@
 import { Business } from '@/app/types/business';
 import BusinessDetails from '@/app/components/BusinessDetails';
-import fs from 'fs';
-import path from 'path';
+
+export const runtime = 'edge';
 
 // Function to load business data
 async function loadBusinessData(): Promise<Business[]> {
   try {
-    const filePath = path.join(process.cwd(), 'src/app/data/nz-listings.json');
-    const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    const response = await fetch('https://raw.githubusercontent.com/meeeeeooooowwwwwww/nz-business-listings/main/src/app/data/nz-listings.json');
+    const data = await response.json();
     return data;
   } catch (error) {
     console.error('Error loading business data:', error);
     return [];
   }
 }
-
-// Set dynamic rendering for this route
-export const dynamic = 'force-dynamic';
 
 // Generate metadata for each page
 export async function generateMetadata({ params }: { params: { id: string } }) {

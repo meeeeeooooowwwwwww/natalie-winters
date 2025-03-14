@@ -26,4 +26,4 @@ The site will be available at [http://localhost:3000](http://localhost:3000)
 - `src/app`: Next.js app router pages and layouts
 - `src/components`: Reusable React components
 - `src/lib`: Utility functions and business logic
-- `public`: Static assets 
+- `public`: Static assets # Trigger new build

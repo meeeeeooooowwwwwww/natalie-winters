@@ -15,13 +15,13 @@ export default function Home() {
     // Initialize YouTube player when API is ready
     window.onYouTubeIframeAPIReady = () => {
       playerRef.current = new window.YT.Player('youtube-player', {
-        videoId: '6vcyNOGbYz8',
+        videoId: 'EiqvfSa8z6M',
         playerVars: {
           autoplay: 1,
           mute: 1,
           controls: 0,
           loop: 1,
-          playlist: '6vcyNOGbYz8',
+          playlist: 'EiqvfSa8z6M',
           modestbranding: 1,
           showinfo: 0,
           rel: 0

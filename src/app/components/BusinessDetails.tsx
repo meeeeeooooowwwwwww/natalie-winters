@@ -11,6 +11,28 @@ interface BusinessDetailsProps {
 export default function BusinessDetails({ business }: BusinessDetailsProps) {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
+  const renderField = (label: string, value: string, icon: string, isLink?: boolean) => {
+    if (value === "Currently Unavailable") return null;
+    
+    return (
+      <div>
+        <h2 className="text-lg font-semibold mb-2">{label}</h2>
+        {isLink ? (
+          <a
+            href={value}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-pink-400 hover:text-pink-300"
+          >
+            {icon} Visit {label}
+          </a>
+        ) : (
+          <p className="text-gray-300">{icon} {value}</p>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-black text-white p-4">
       <div className="max-w-4xl mx-auto">
@@ -22,20 +44,8 @@ export default function BusinessDetails({ business }: BusinessDetailsProps) {
           <h1 className="text-3xl font-bold mb-6">{business.value.title}</h1>
           
           <div className="space-y-4">
-            {business.value.address !== "Currently Unavailable" && (
-              <div>
-                <h2 className="text-lg font-semibold mb-2">Address</h2>
-                <p className="text-gray-300">{business.value.address}</p>
-              </div>
-            )}
-
-            {business.value.phone !== "Currently Unavailable" && (
-              <div>
-                <h2 className="text-lg font-semibold mb-2">Phone</h2>
-                <p className="text-gray-300">📞 {business.value.phone}</p>
-              </div>
-            )}
-
+            {renderField("Address", business.value.address, "📍")}
+            {renderField("Phone", business.value.phone, "📞")}
             {business.value.email !== "Currently Unavailable" && (
               <div>
                 <h2 className="text-lg font-semibold mb-2">Email</h2>
@@ -47,27 +57,17 @@ export default function BusinessDetails({ business }: BusinessDetailsProps) {
                 </button>
               </div>
             )}
+            {renderField("Website", business.value.website, "🌐", true)}
+            {renderField("URL", business.value.url, "🔗", true)}
+            {renderField("Description", business.value.description, "📝")}
+          </div>
 
-            {business.value.website !== "Currently Unavailable" && (
-              <div>
-                <h2 className="text-lg font-semibold mb-2">Website</h2>
-                <a
-                  href={business.value.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-pink-400 hover:text-pink-300"
-                >
-                  🌐 Visit Website
-                </a>
-              </div>
-            )}
-
-            {business.value.description !== "Currently Unavailable" && (
-              <div>
-                <h2 className="text-lg font-semibold mb-2">Description</h2>
-                <p className="text-gray-300">{business.value.description}</p>
-              </div>
-            )}
+          {/* Additional Info Section */}
+          <div className="mt-8 pt-8 border-t border-pink-400/20">
+            <h2 className="text-lg font-semibold mb-4">Additional Information</h2>
+            <p className="text-gray-400 text-sm">
+              Business ID: {business.key}
+            </p>
           </div>
         </div>
       </div>

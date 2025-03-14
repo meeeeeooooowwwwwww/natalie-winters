@@ -80,7 +80,7 @@ export default function Home() {
           className="pulse-animation bg-pink-400 text-white px-4 py-2 rounded-full font-semibold shadow-lg flex items-center gap-2"
           style={{ backgroundColor: '#F472B6' }}
         >
-          {isMuted ? '🔇 Sound Off' : '🔊 Sound On'}
+          {isMuted ? '🔊 Sound On' : '🔇 Sound Off'}
         </div>
       </button>
       <div className="absolute bottom-16 left-16 z-10">

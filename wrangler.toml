@@ -4,4 +4,13 @@ command = "npm run build"
 NODE_VERSION = "18.18.0"
 
 [site]
-bucket = ".next" 
+bucket = ".next"
+
+# Required for Cloudflare Pages
+[build.upload]
+format = "service-worker"
+dir = ".next"
+main = ".next/worker.js"
+
+# Specify the build output directory
+pages_build_output_dir = ".next" 

@@ -1,9 +1,15 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { videoIds } from './data/videoIds';
 
 export default function Home() {
   const [isMuted, setIsMuted] = useState(true);
   const playerRef = useRef<any>(null);
+  const [currentVideoId] = useState(() => {
+    // Select a random video ID when the component mounts
+    const randomIndex = Math.floor(Math.random() * videoIds.length);
+    return videoIds[randomIndex];
+  });
 
   useEffect(() => {
     // Load YouTube API
@@ -15,13 +21,13 @@ export default function Home() {
     // Initialize YouTube player when API is ready
     window.onYouTubeIframeAPIReady = () => {
       playerRef.current = new window.YT.Player('youtube-player', {
-        videoId: 'epVPC9JTFMc',
+        videoId: currentVideoId,
         playerVars: {
           autoplay: 1,
           mute: 1,
           controls: 0,
           loop: 1,
-          playlist: 'epVPC9JTFMc',
+          playlist: currentVideoId,
           modestbranding: 1,
           showinfo: 0,
           rel: 0
@@ -34,7 +40,7 @@ export default function Home() {
         },
       });
     };
-  }, []);
+  }, [currentVideoId]);
 
   const toggleSound = () => {
     if (playerRef.current) {

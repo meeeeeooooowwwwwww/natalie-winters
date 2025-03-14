@@ -1,4 +1,8 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import { Business } from '@/app/types/business';
+import ContactModal from '@/app/components/ContactModal';
 
 // Function to load business data
 async function loadBusinessData(): Promise<Business[]> {
@@ -39,9 +43,17 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   };
 }
 
-export default async function BusinessPage({ params }: { params: { id: string } }) {
-  const businesses = await loadBusinessData();
-  const business = businesses.find(b => b.key === params.id);
+export default function BusinessPage({ params }: { params: { id: string } }) {
+  const [business, setBusiness] = useState<Business | null>(null);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
+  // Load business data on client side
+  useEffect(() => {
+    loadBusinessData().then(businesses => {
+      const found = businesses.find(b => b.key === params.id);
+      setBusiness(found || null);
+    });
+  }, [params.id]);
 
   if (!business) {
     return (
@@ -86,12 +98,12 @@ export default async function BusinessPage({ params }: { params: { id: string } 
             {business.value.email !== "Currently Unavailable" && (
               <div>
                 <h2 className="text-lg font-semibold mb-2">Email</h2>
-                <a 
-                  href={`mailto:${business.value.email}`}
+                <button 
+                  onClick={() => setIsContactModalOpen(true)}
                   className="text-pink-400 hover:text-pink-300"
                 >
-                  ✉️ {business.value.email}
-                </a>
+                  ✉️ Contact via Email Form
+                </button>
               </div>
             )}
 
@@ -118,6 +130,13 @@ export default async function BusinessPage({ params }: { params: { id: string } 
           </div>
         </div>
       </div>
+
+      <ContactModal
+        businessName={business.value.title}
+        businessEmail={business.value.email}
+        isOpen={isContactModalOpen}
+        onClose={() => setIsContactModalOpen(false)}
+      />
     </div>
   );
 } 

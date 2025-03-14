@@ -88,7 +88,7 @@ export default function Home() {
 
   return (
     <main className="h-screen w-screen overflow-hidden relative bg-black">
-      <div className="absolute inset-0 w-full h-[calc(100%-120px)] sm:h-full p-2">
+      <div className="absolute inset-0 w-full h-[calc(100%-100px)] sm:h-full p-2">
         <div 
           className="relative w-full h-full border-8 border-pink-400 rounded-lg overflow-hidden"
           style={{

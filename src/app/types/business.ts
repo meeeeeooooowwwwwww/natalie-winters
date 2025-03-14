@@ -1,26 +1,18 @@
 export interface Business {
-  id: string;
-  name: string;
-  address: string;
-  city: string;
-  region: string;
-  postalCode: string;
-  phone?: string;
-  email?: string;
-  website?: string;
-  category?: string;
-  subCategory?: string;
-  description?: string;
-  coordinates?: {
-    latitude: number;
-    longitude: number;
+  key: string;
+  value: {
+    title: string;
+    address: string;
+    phone: string;
+    url: string;
+    email: string;
+    website: string;
+    description: string;
   };
 }
 
 export interface SearchFilters {
   query: string;
-  region?: string;
-  category?: string;
   nearMe?: boolean;
   radius?: number; // in kilometers
 }

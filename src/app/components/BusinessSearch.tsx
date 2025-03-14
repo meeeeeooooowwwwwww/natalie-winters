@@ -1,22 +1,18 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useLocation } from '../contexts/LocationContext';
 import { searchBusinesses } from '../utils/search';
 import { Business, SearchFilters, SearchResults } from '../types/business';
 import { useDebounce } from 'use-debounce';
 
 export default function BusinessSearch() {
   const [filters, setFilters] = useState<SearchFilters>({
-    query: '',
-    nearMe: false,
-    radius: 50
+    query: ''
   });
   const [debouncedFilters] = useDebounce(filters, 300);
   const [page, setPage] = useState(1);
   const [results, setResults] = useState<SearchResults | null>(null);
   const [loading, setLoading] = useState(false);
-  const { coordinates } = useLocation();
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -24,10 +20,7 @@ export default function BusinessSearch() {
       try {
         const searchResults = await searchBusinesses(
           debouncedFilters,
-          page,
-          coordinates.latitude && coordinates.longitude
-            ? { latitude: coordinates.latitude, longitude: coordinates.longitude }
-            : undefined
+          page
         );
         setResults(searchResults);
       } catch (error) {
@@ -37,7 +30,7 @@ export default function BusinessSearch() {
     };
 
     fetchResults();
-  }, [debouncedFilters, page, coordinates]);
+  }, [debouncedFilters, page]);
 
   return (
     <div className="w-full max-w-6xl mx-auto px-4 py-8">
@@ -63,40 +56,6 @@ export default function BusinessSearch() {
         </form>
       </div>
 
-      {/* Filters */}
-      <div className="flex flex-wrap gap-4 mb-8">
-        <label className="flex items-center space-x-2 text-white">
-          <input
-            type="checkbox"
-            checked={filters.nearMe}
-            onChange={(e) => {
-              // If no coordinates available, don't allow enabling nearMe
-              if (!coordinates.latitude || !coordinates.longitude) {
-                return;
-              }
-              setFilters({ ...filters, nearMe: e.target.checked })
-            }}
-            disabled={!coordinates.latitude || !coordinates.longitude}
-            className="rounded text-pink-400 focus:ring-pink-400 disabled:opacity-50"
-          />
-          <span className={!coordinates.latitude || !coordinates.longitude ? 'opacity-50' : ''}>Near Me</span>
-        </label>
-
-        {filters.nearMe && (
-          <select
-            value={filters.radius}
-            onChange={(e) => setFilters({ ...filters, radius: Number(e.target.value) })}
-            className="bg-white/10 text-white border border-pink-400 rounded-full px-4 py-1"
-          >
-            <option value="5">5km</option>
-            <option value="10">10km</option>
-            <option value="25">25km</option>
-            <option value="50">50km</option>
-            <option value="100">100km</option>
-          </select>
-        )}
-      </div>
-
       {/* Results */}
       {loading ? (
         <div className="text-white text-center">Loading...</div>
@@ -106,24 +65,34 @@ export default function BusinessSearch() {
         <div className="grid gap-6">
           {results?.businesses.map((business) => (
             <div
-              key={business.id}
+              key={business.key}
               className="bg-white/5 rounded-lg p-6 text-white border border-pink-400/20 hover:border-pink-400/40 transition-colors"
             >
-              <h3 className="text-xl font-semibold mb-2">{business.name}</h3>
-              <p className="text-gray-300 mb-2">{business.address}, {business.city}</p>
-              {business.phone && (
-                <p className="text-gray-300 mb-2">📞 {business.phone}</p>
+              <h3 className="text-xl font-semibold mb-2">{business.value.title}</h3>
+              {business.value.address !== "Currently Unavailable" && (
+                <p className="text-gray-300 mb-2">{business.value.address}</p>
               )}
-              {business.website && (
+              {business.value.phone !== "Currently Unavailable" && (
+                <p className="text-gray-300 mb-2">📞 {business.value.phone}</p>
+              )}
+              {business.value.website !== "Currently Unavailable" && (
                 <a
-                  href={business.website}
+                  href={business.value.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-pink-400 hover:text-pink-300"
+                  className="text-pink-400 hover:text-pink-300 mr-4"
                 >
                   🌐 Visit Website
                 </a>
               )}
+              <a
+                href={business.value.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-pink-400 hover:text-pink-300"
+              >
+                ℹ️ More Info
+              </a>
             </div>
           ))}
         </div>

@@ -13,6 +13,7 @@ export default function BusinessDetails({ business }: BusinessDetailsProps) {
 
   const renderField = (label: string, value: string, icon: string, isLink?: boolean) => {
     if (value === "Currently Unavailable") return null;
+    if (label === "URL" && (value.includes("nataliegwinters.com") || !value)) return null;
     
     return (
       <div>

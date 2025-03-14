@@ -60,10 +60,12 @@ export default function Home() {
         >
           <div
             id="youtube-player"
-            className="absolute inset-0"
+            className="absolute inset-0 w-full h-full"
             style={{
+              position: 'absolute',
               width: '100%',
-              height: '100%'
+              height: '100%',
+              overflow: 'hidden'
             }}
           />
         </div>

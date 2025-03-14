@@ -39,9 +39,9 @@ export default function BusinessSearch() {
   }, [debouncedFilters, page]);
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 py-8">
+    <div className="w-full max-w-6xl mx-auto px-4 pt-4 pb-8">
       {/* Navigation */}
-      <div className="flex justify-center gap-8 mb-16 text-sm">
+      <div className="flex justify-center gap-8 mb-12 text-sm">
         <a
           href="/about"
           className="text-white/70 hover:text-white transition-all duration-500 hover:shadow-[0_0_15px_rgba(236,72,153,0.5)] px-2 py-1 rounded"

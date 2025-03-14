@@ -6,7 +6,12 @@ import path from 'path';
 // Function to load business data
 async function loadBusinessData(): Promise<Business[]> {
   try {
-    const filePath = path.join(process.cwd(), 'src/app/data/nz-listings.json');
+    // Use sample data in development, full data in production
+    const fileName = process.env.NODE_ENV === 'development' 
+      ? 'sample-listings.json' 
+      : 'nz-listings.json';
+    
+    const filePath = path.join(process.cwd(), 'src/app/data', fileName);
     const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
     return data;
   } catch (error) {
@@ -15,13 +20,8 @@ async function loadBusinessData(): Promise<Business[]> {
   }
 }
 
-// Generate static params for all business pages
-export async function generateStaticParams() {
-  const businesses = await loadBusinessData();
-  return businesses.map((business) => ({
-    id: business.key,
-  }));
-}
+// Set dynamic rendering for this route
+export const dynamic = 'force-dynamic';
 
 // Generate metadata for each page
 export async function generateMetadata({ params }: { params: { id: string } }) {

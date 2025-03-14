@@ -3,6 +3,9 @@ import { headers } from 'next/headers';
 import path from 'path';
 import fs from 'fs';
 
+// Set dynamic rendering for this route
+export const dynamic = 'force-dynamic';
+
 // Simple in-memory rate limiting
 const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
 const MAX_REQUESTS = 30; // 30 requests per minute

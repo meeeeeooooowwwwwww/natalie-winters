@@ -1,15 +1,37 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { videoIds } from './data/videoIds';
 
 export default function Home() {
   const [isMuted, setIsMuted] = useState(true);
   const playerRef = useRef<any>(null);
-  const [currentVideoId] = useState(() => {
+  const [currentVideoId, setCurrentVideoId] = useState(() => {
     // Select a random video ID when the component mounts
     const randomIndex = Math.floor(Math.random() * videoIds.length);
     return videoIds[randomIndex];
   });
+  const [playedVideos, setPlayedVideos] = useState<string[]>([]);
+
+  const playNextVideo = useCallback(() => {
+    // Get available videos (ones that haven't been played yet)
+    const availableVideos = videoIds.filter(id => !playedVideos.includes(id));
+    
+    // If all videos have been played, reset the played list
+    if (availableVideos.length === 0) {
+      setPlayedVideos([]);
+      const randomIndex = Math.floor(Math.random() * videoIds.length);
+      setCurrentVideoId(videoIds[randomIndex]);
+      return;
+    }
+
+    // Select a random video from available videos
+    const randomIndex = Math.floor(Math.random() * availableVideos.length);
+    const nextVideoId = availableVideos[randomIndex];
+    
+    // Update state
+    setCurrentVideoId(nextVideoId);
+    setPlayedVideos(prev => [...prev, nextVideoId]);
+  }, [playedVideos]);
 
   useEffect(() => {
     // Load YouTube API
@@ -26,20 +48,31 @@ export default function Home() {
           autoplay: 1,
           mute: 1,
           controls: 0,
-          loop: 1,
-          playlist: currentVideoId,
+          loop: 0, // Disable looping
           modestbranding: 1,
           showinfo: 0,
           rel: 0
         },
         events: {
           onReady: (event: any) => {
-            // Player is ready
             console.log('Player ready');
           },
+          onStateChange: (event: any) => {
+            // When video ends (state = 0), play next video
+            if (event.data === 0) {
+              playNextVideo();
+            }
+          }
         },
       });
     };
+  }, [currentVideoId, playNextVideo]);
+
+  // Update video when currentVideoId changes
+  useEffect(() => {
+    if (playerRef.current && playerRef.current.loadVideoById) {
+      playerRef.current.loadVideoById(currentVideoId);
+    }
   }, [currentVideoId]);
 
   const toggleSound = () => {

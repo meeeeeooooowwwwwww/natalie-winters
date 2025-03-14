@@ -14,6 +14,7 @@ interface YT {
       };
       events?: {
         onReady?: (event: any) => void;
+        onStateChange?: (event: { data: number }) => void;
       };
     }): any;
   };

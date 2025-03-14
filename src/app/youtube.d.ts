@@ -8,6 +8,9 @@ interface YT {
         controls?: number;
         loop?: number;
         playlist?: string;
+        modestbranding?: number;
+        showinfo?: number;
+        rel?: number;
       };
       events?: {
         onReady?: (event: any) => void;

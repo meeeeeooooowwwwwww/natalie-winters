@@ -19,9 +19,12 @@ export default function Home() {
         playerVars: {
           autoplay: 1,
           mute: 1,
-          controls: 1,
+          controls: 0,
           loop: 1,
           playlist: '6vcyNOGbYz8',
+          modestbranding: 1,
+          showinfo: 0,
+          rel: 0
         },
         events: {
           onReady: (event: any) => {

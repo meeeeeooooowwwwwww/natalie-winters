@@ -69,10 +69,17 @@ export default function BusinessSearch() {
           <input
             type="checkbox"
             checked={filters.nearMe}
-            onChange={(e) => setFilters({ ...filters, nearMe: e.target.checked })}
-            className="rounded text-pink-400 focus:ring-pink-400"
+            onChange={(e) => {
+              // If no coordinates available, don't allow enabling nearMe
+              if (!coordinates.latitude || !coordinates.longitude) {
+                return;
+              }
+              setFilters({ ...filters, nearMe: e.target.checked })
+            }}
+            disabled={!coordinates.latitude || !coordinates.longitude}
+            className="rounded text-pink-400 focus:ring-pink-400 disabled:opacity-50"
           />
-          <span>Near Me</span>
+          <span className={!coordinates.latitude || !coordinates.longitude ? 'opacity-50' : ''}>Near Me</span>
         </label>
 
         {filters.nearMe && (

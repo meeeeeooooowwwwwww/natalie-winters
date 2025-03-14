@@ -1,18 +1,20 @@
 import { Business, SearchFilters, SearchResults } from '../types/business';
 
-// We'll load the data using a dynamic import
+const ITEMS_PER_PAGE = 20;
+
+// Function to load business data
 async function loadBusinessData(): Promise<Business[]> {
   try {
-    const response = await fetch('/nz-listings.json');
-    const data = await response.json();
-    return data;
+    const response = await fetch('/api/businesses');
+    if (!response.ok) {
+      throw new Error('Failed to fetch business data');
+    }
+    return response.json();
   } catch (error) {
     console.error('Error loading business data:', error);
     return [];
   }
 }
-
-const ITEMS_PER_PAGE = 20;
 
 export async function searchBusinesses(
   filters: SearchFilters,

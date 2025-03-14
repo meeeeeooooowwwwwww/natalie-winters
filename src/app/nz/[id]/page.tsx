@@ -7,8 +7,11 @@ import ContactModal from '@/app/components/ContactModal';
 // Function to load business data
 async function loadBusinessData(): Promise<Business[]> {
   try {
-    // In Node.js environment during build, we need to use require
-    return require('../../../../public/nz-listings.json');
+    const response = await fetch('/api/businesses');
+    if (!response.ok) {
+      throw new Error('Failed to fetch business data');
+    }
+    return response.json();
   } catch (error) {
     console.error('Error loading business data:', error);
     return [];

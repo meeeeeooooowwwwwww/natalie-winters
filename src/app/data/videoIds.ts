@@ -32,4 +32,7 @@ export const videoIds = [
   'ipvEIZMMILA',
   'oFBWPcaMKeo',
   'SYM-RJwSGQ8',
+  'w6Q3mHyzn78',
+  'JgffRW1fKDk',
+  'Hub_Sbd4kXQ',
 ]; 

@@ -1,17 +1,11 @@
 #!/bin/bash
 
-# Download New Zealand flag
-curl -o nz-flag.png "https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg" || exit 1
+# Create public directory if it doesn't exist
+mkdir -p public
 
-# Install ImageMagick if not present (commented out as it requires admin privileges)
-# sudo apt-get update && sudo apt-get install -y imagemagick
+# Download pre-sized New Zealand flag icons
+curl -o public/favicon.ico "https://www.favicon.cc/favicon/993/731/favicon.ico" || exit 1
+curl -o public/icon.png "https://flagcdn.com/32x24/nz.png" || exit 1
+curl -o public/apple-icon.png "https://flagcdn.com/180x135/nz.png" || exit 1
 
-# Convert to various sizes
-convert nz-flag.png -resize 32x32 public/icon.png
-convert nz-flag.png -resize 180x180 public/apple-icon.png
-convert nz-flag.png -resize 32x32 public/favicon.ico
-
-# Clean up
-rm nz-flag.png
-
-echo "Favicon files have been created in the public directory" 
+echo "Favicon files have been downloaded to the public directory" 

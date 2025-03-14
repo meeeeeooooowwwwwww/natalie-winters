@@ -94,7 +94,8 @@ export default function Home() {
           style={{
             borderWidth: '8px',
             borderStyle: 'solid',
-            borderColor: '#F472B6'
+            borderColor: '#F472B6',
+            height: 'calc(100% - 100px)' // Reduce height to create space at bottom
           }}
         >
           <div
@@ -109,13 +110,13 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className="absolute bottom-0 left-0 right-0 z-20 flex flex-col items-center justify-center w-full pb-8">
+      <div className="absolute bottom-0 left-0 right-0 z-20 flex flex-col items-center justify-center w-full pb-4">
         <h1 className="glitch-text text-white text-6xl font-bold drop-shadow-lg text-center w-full px-4">
           Coming Soon
         </h1>
         <button 
           onClick={toggleSound}
-          className="cursor-pointer mt-8"
+          className="cursor-pointer mt-4"
         >
           <div 
             className="pulse-animation bg-pink-400 text-white px-4 py-2 rounded-full font-semibold shadow-lg flex items-center gap-2"

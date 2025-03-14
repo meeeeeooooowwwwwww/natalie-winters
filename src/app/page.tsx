@@ -91,9 +91,9 @@ export default function Home() {
     <main className="h-screen w-screen overflow-hidden relative bg-black">
       <div className="absolute inset-0 w-full h-[calc(100%-85px)] sm:h-full p-2">
         <div 
-          className="relative w-full h-full border-8 border-pink-400 rounded-lg overflow-hidden"
+          className="relative w-full h-full border-5 border-pink-400 rounded-lg overflow-hidden"
           style={{
-            borderWidth: '8px',
+            borderWidth: '5px',
             borderStyle: 'solid',
             borderColor: '#F472B6'
           }}

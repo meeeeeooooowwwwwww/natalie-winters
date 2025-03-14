@@ -40,6 +40,28 @@ export default function BusinessSearch() {
 
   return (
     <div className="w-full max-w-6xl mx-auto px-4 py-8">
+      {/* Navigation */}
+      <div className="flex justify-center gap-8 mb-16 text-sm">
+        <a
+          href="/about"
+          className="text-white/70 hover:text-white transition-all duration-500 hover:shadow-[0_0_15px_rgba(236,72,153,0.5)] px-2 py-1 rounded"
+        >
+          About
+        </a>
+        <a
+          href="/contact"
+          className="text-white/70 hover:text-white transition-all duration-500 hover:shadow-[0_0_15px_rgba(236,72,153,0.5)] px-2 py-1 rounded"
+        >
+          Contact
+        </a>
+        <a
+          href="/privacy"
+          className="text-white/70 hover:text-white transition-all duration-500 hover:shadow-[0_0_15px_rgba(236,72,153,0.5)] px-2 py-1 rounded"
+        >
+          Privacy
+        </a>
+      </div>
+
       {/* Search Input */}
       <div className="mb-8">
         <form onSubmit={(e) => {
@@ -49,7 +71,7 @@ export default function BusinessSearch() {
           <input
             type="text"
             placeholder="Search NZ Businesses..."
-            className="w-full px-4 py-2 rounded-full bg-white/10 text-white border border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-400"
+            className="w-full px-4 py-2 rounded-full bg-white/10 text-white border border-[0.5px] border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-400"
             value={filters.query}
             onChange={(e) => setFilters({ ...filters, query: e.target.value })}
             onKeyDown={(e) => {

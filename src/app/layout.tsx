@@ -1,6 +1,8 @@
 import './globals.css?v=5'
 import type { Metadata } from 'next'
 import CookieConsent from './components/CookieConsent'
+import { LocationProvider } from './contexts/LocationContext'
+import LocationPermission from './components/LocationPermission'
 
 export const metadata: Metadata = {
   title: 'BADDIE BADDIE BADDIE IMMA LIL BADDIE',
@@ -79,8 +81,11 @@ export default function RootLayout({
         />
       </head>
       <body className="overflow-hidden m-0 p-0">
-        {children}
-        <CookieConsent />
+        <LocationProvider>
+          {children}
+          <LocationPermission />
+          <CookieConsent />
+        </LocationProvider>
       </body>
     </html>
   )

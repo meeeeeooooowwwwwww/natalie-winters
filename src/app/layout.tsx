@@ -1,4 +1,4 @@
-import './globals.css?v=4'
+import './globals.css?v=5'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {

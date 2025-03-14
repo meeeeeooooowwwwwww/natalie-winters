@@ -49,7 +49,7 @@ export default function Home() {
 
   return (
     <main className="h-screen w-screen overflow-hidden relative bg-black">
-      <div className="absolute inset-0 w-full h-full p-4">
+      <div className="absolute inset-0 w-full h-full p-2">
         <div 
           className="relative w-full h-full border-8 border-pink-400 rounded-lg overflow-hidden"
           style={{
@@ -70,9 +70,14 @@ export default function Home() {
           />
         </div>
       </div>
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 text-center">
+        <h1 className="glitch-text text-white text-6xl font-bold drop-shadow-lg">
+          Coming Soon
+        </h1>
+      </div>
       <button 
         onClick={toggleSound}
-        className="absolute top-8 right-8 z-20 cursor-pointer"
+        className="absolute bottom-6 left-16 z-20 cursor-pointer"
       >
         <div 
           className="pulse-animation bg-pink-400 text-white px-4 py-2 rounded-full font-semibold shadow-lg flex items-center gap-2"
@@ -81,14 +86,6 @@ export default function Home() {
           {isMuted ? '🔊 Sound On' : '🔇 Sound Off'}
         </div>
       </button>
-      <div className="absolute bottom-8 left-8 z-20">
-        <h1 className="text-white text-4xl font-bold drop-shadow-lg">
-          NZ Business Listings
-        </h1>
-        <p className="text-white text-xl mt-2 drop-shadow-lg">
-          Coming Soon
-        </p>
-      </div>
     </main>
   );
 } 

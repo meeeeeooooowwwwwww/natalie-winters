@@ -88,7 +88,7 @@ export default function Home() {
 
   return (
     <main className="h-screen w-screen overflow-hidden relative bg-black">
-      <div className="absolute inset-0 w-full h-full lg:h-full h-[calc(100%-100px)] p-2">
+      <div className="absolute inset-0 w-full h-[calc(100%-160px)] md:h-[calc(100%-100px)] lg:h-full p-2">
         <div 
           className="relative w-full h-full border-8 border-pink-400 rounded-lg overflow-hidden"
           style={{
@@ -109,7 +109,7 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className="absolute lg:bottom-0 bottom-[20px] left-0 right-0 z-20 flex flex-col items-center justify-center w-full lg:pb-8 pb-0">
+      <div className="absolute bottom-[40px] md:bottom-[20px] lg:bottom-0 left-0 right-0 z-20 flex flex-col items-center justify-center w-full lg:pb-8 pb-0">
         <h1 className="glitch-text text-white text-6xl font-bold drop-shadow-lg text-center w-full px-4">
           Coming Soon
         </h1>

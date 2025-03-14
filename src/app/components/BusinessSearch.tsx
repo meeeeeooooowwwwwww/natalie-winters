@@ -86,7 +86,7 @@ export default function BusinessSearch() {
                 </a>
               )}
               <a
-                href={`/business/${business.key}`}
+                href={`/nz/${business.key}`}
                 className="text-pink-400 hover:text-pink-300"
               >
                 ℹ️ More Info

@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { videoIds } from './data/videoIds';
+import BusinessSearch from './components/BusinessSearch';
 
 export default function Home() {
   const [isMuted, setIsMuted] = useState(true);
@@ -107,6 +108,9 @@ export default function Home() {
               overflow: 'hidden'
             }}
           />
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm">
+            <BusinessSearch />
+          </div>
         </div>
       </div>
       <div className="absolute bottom-[120px] sm:bottom-0 left-0 right-0 z-20 flex flex-col items-center justify-center w-full sm:pb-8 pb-0">

@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
 interface LocationContextType {
   coordinates: {
@@ -9,12 +9,14 @@ interface LocationContextType {
   };
   error: string | null;
   loading: boolean;
+  resetAndRetry: () => void;
 }
 
 const LocationContext = createContext<LocationContextType>({
   coordinates: { latitude: null, longitude: null },
   error: null,
-  loading: true
+  loading: true,
+  resetAndRetry: () => {}
 });
 
 export function LocationProvider({ children }: { children: React.ReactNode }) {
@@ -25,27 +27,16 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // Check if geolocation is supported
+  const requestLocation = useCallback(() => {
+    setLoading(true);
+    setError(null);
+
     if (!navigator.geolocation) {
       setError('Geolocation is not supported by your browser');
       setLoading(false);
       return;
     }
 
-    // Try to get location from localStorage first
-    const savedLocation = localStorage.getItem('user-location');
-    if (savedLocation) {
-      try {
-        const parsed = JSON.parse(savedLocation);
-        setCoordinates(parsed);
-        setLoading(false);
-      } catch (e) {
-        localStorage.removeItem('user-location');
-      }
-    }
-
-    // Request current position
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const newCoordinates = {
@@ -54,7 +45,6 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
         };
         setCoordinates(newCoordinates);
         setLoading(false);
-        // Save to localStorage for future use
         localStorage.setItem('user-location', JSON.stringify(newCoordinates));
       },
       (error) => {
@@ -81,8 +71,29 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
     );
   }, []);
 
+  const resetAndRetry = useCallback(() => {
+    localStorage.removeItem('user-location');
+    requestLocation();
+  }, [requestLocation]);
+
+  useEffect(() => {
+    const savedLocation = localStorage.getItem('user-location');
+    if (savedLocation) {
+      try {
+        const parsed = JSON.parse(savedLocation);
+        setCoordinates(parsed);
+        setLoading(false);
+      } catch (e) {
+        localStorage.removeItem('user-location');
+        requestLocation();
+      }
+    } else {
+      requestLocation();
+    }
+  }, [requestLocation]);
+
   return (
-    <LocationContext.Provider value={{ coordinates, error, loading }}>
+    <LocationContext.Provider value={{ coordinates, error, loading, resetAndRetry }}>
       {children}
     </LocationContext.Provider>
   );

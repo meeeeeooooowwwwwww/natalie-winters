@@ -86,9 +86,7 @@ export default function BusinessSearch() {
                 </a>
               )}
               <a
-                href={business.value.url}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={`/business/${business.key}`}
                 className="text-pink-400 hover:text-pink-300"
               >
                 ℹ️ More Info

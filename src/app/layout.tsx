@@ -2,8 +2,25 @@ import './globals.css'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'NZ Business Listings - Coming Soon',
-  description: 'Directory of New Zealand Businesses - Coming Soon',
+  title: 'NZ Business Listings',
+  description: 'New Zealand Business Listings - Coming Soon',
+  icons: {
+    icon: [
+      {
+        url: '/favicon.ico',
+        sizes: 'any',
+      },
+      {
+        url: '/icon.png',
+        type: 'image/png',
+        sizes: '32x32',
+      },
+    ],
+    apple: {
+      url: '/apple-icon.png',
+      sizes: '180x180',
+    },
+  },
 }
 
 export default function RootLayout({

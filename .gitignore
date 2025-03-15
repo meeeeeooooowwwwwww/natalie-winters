@@ -41,3 +41,6 @@ __pycache__/
 *.so
 .Python
 .env 
+
+# Chat UI development
+/chat-ui/ 

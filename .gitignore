@@ -45,13 +45,38 @@ src/sites/*/.env*
 src/sites/*/out/
 
 # Python
-.venv/
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
-.env 
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# Chat UI development
-/chat-ui/ 
+# Large binary files
+*.dll
+*.exe
+*.lib
+*.pyd
+*.so
+*.dylib
+
+# Chat UI specific
+biz-natalie/chat-ui/venv/
+**/node_modules/
+**/.next/ 

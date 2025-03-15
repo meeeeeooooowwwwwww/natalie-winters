@@ -1,99 +1,71 @@
-# Natalie G Winters Website Network
+# Natalie Winters Multi-Site Project
 
-This repository contains the codebase for nataliegwinters.com and its associated subdomains. The project is structured as a monorepo with shared resources and components that can be used across all domains.
+This repository contains three Next.js sites sharing common components and styles:
 
-## Domain Structure
+1. Main Site (Port 3000) - Primary website
+2. Business Directory (Port 3001) - Business listings and search
+3. News Site (Port 3002) - News and video content
 
-### Main Website (nataliegwinters.com)
-- **Directory:** `parent-natalie/`
-- **Description:** The main website and shared resource hub
-- **URL:** https://nataliegwinters.com
-
-### Business Directory (business.nataliegwinters.com)
-- **Directory:** `sites/biz-natalie/`
-- **Description:** Business directory and listings subdomain
-- **URL:** https://business.nataliegwinters.com
-
-### News Portal (news.nataliegwinters.com)
-- **Directory:** `sites/news-natalie/`
-- **Description:** News and articles subdomain
-- **URL:** https://news.nataliegwinters.com
-
-## Repository Structure
+## Project Structure
 
 ```
-parent-natalie/                # Root directory (main website)
-├── src/                      # Source code directory
-│   ├── app/                 # Next.js app directory
-│   ├── shared/             # Shared resources
-│   │   ├── components/    # Reusable UI components
-│   │   ├── layouts/      # Common layout components
-│   │   ├── styles/      # Shared styles and themes
-│   │   ├── utils/       # Utility functions
-│   │   ├── hooks/       # Custom React hooks
-│   │   └── api/         # API utilities and connections
-│   └── sites/          # Subdomain-specific code
-│       ├── biz-natalie/  # Business site specific code
-│       └── news-natalie/ # News site specific code
-├── public/              # Static assets
-└── config/             # Shared configuration files
-
+natalie-winters/
+├── package.json              # Root package.json with workspace config
+├── src/
+│   ├── shared/              # Shared components, styles, and utilities
+│   │   ├── components/      # Reusable React components
+│   │   ├── styles/         # Global styles and CSS
+│   │   ├── layouts/        # Common layout components
+│   │   └── utils/          # Shared utility functions
+│   └── sites/
+│       ├── main-natalie/   # Main site (port 3000)
+│       ├── biz-natalie/    # Business site (port 3001)
+│       └── news-natalie/   # News site (port 3002)
 ```
 
-## Shared Resources
+## Getting Started
 
-The project uses a shared resource architecture where common components and functionality are maintained in the parent project:
+1. Install dependencies:
+```bash
+npm install
+```
 
-- **Layouts:** Common layouts, headers, footers in `src/shared/layouts`
-- **Components:** Reusable UI components in `src/shared/components`
-- **API Connections:** Shared API utilities in `src/shared/api`
-- **Styles:** Global styles and themes in `src/shared/styles`
-- **Utils:** Common utility functions in `src/shared/utils`
+2. Run development servers:
+
+- All sites:
+```bash
+npm run dev:all
+```
+
+- Individual sites:
+```bash
+npm run main:dev  # Main site on port 3000
+npm run biz:dev   # Business site on port 3001
+npm run news:dev  # News site on port 3002
+```
 
 ## Development
 
-### Setting Up the Development Environment
+- `main` branch contains production code
+- `development` branch for active development
+- Create feature branches from `development` for new features
 
-1. Clone this repository
-2. Install dependencies in the root directory:
-   ```bash
-   npm install
-   ```
-3. Install dependencies for each site:
-   ```bash
-   cd sites/biz-natalie && npm install
-   cd sites/news-natalie && npm install
-   ```
+## Shared Resources
 
-### Running the Projects
+- Components in `src/shared/components/` are available to all sites
+- Global styles in `src/shared/styles/` apply across all sites
+- Common utilities in `src/shared/utils/` can be imported by any site
 
-To run the main website:
+## Building for Production
+
+Build all sites:
 ```bash
-npm run dev
+npm run build:all
 ```
 
-To run a subdomain site (e.g., business site):
+Or build individual sites:
 ```bash
-cd sites/biz-natalie
-npm run dev
+npm run main:build
+npm run biz:build
+npm run news:build
 ```
-
-## Project Configuration
-
-Each subdomain project can:
-- Import shared components from the parent
-- Override shared components with custom implementations
-- Use shared API connections and utilities
-- Maintain its own specific components and logic
-
-## Deployment
-
-Each website is configured to deploy to its respective domain/subdomain while sharing the common resources:
-
-1. Main website deploys to nataliegwinters.com
-2. Business directory deploys to business.nataliegwinters.com
-3. News portal deploys to news.nataliegwinters.com
-
-## Contact
-
-For any questions or issues, please contact the website administrator.

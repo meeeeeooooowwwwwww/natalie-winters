@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-rgb: 0, 0, 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+}
+
+html,
+body {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.pulse-animation {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* YouTube player specific styles */
+.html5-video-player {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.html5-video-container {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.video-stream {
+  width: 100% !important;
+  height: 100% !important;
+  transform: none !important;
+  left: 0 !important;
+  top: 0 !important;
+}
+
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+    opacity: 1;
+  }
+  20% {
+    transform: translate(-2px, 2px);
+    opacity: 0.9;
+    text-shadow: 2px 2px #F472B6;
+  }
+  40% {
+    transform: translate(-2px, -2px);
+    opacity: 0.8;
+    text-shadow: 2px -2px #F472B6;
+  }
+  60% {
+    transform: translate(2px, 2px);
+    opacity: 0.9;
+    text-shadow: -2px 2px #F472B6;
+  }
+  80% {
+    transform: translate(2px, -2px);
+    opacity: 0.8;
+    text-shadow: -2px -2px #F472B6;
+  }
+  100% {
+    transform: translate(0);
+    opacity: 1;
+  }
+}
+
+.glitch-text {
+  font-family: 'Share Tech Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  text-shadow: 2px 2px #F472B6;
+} 

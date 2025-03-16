@@ -1,5 +1,5 @@
 import { WarRoomVideo, VideoSearchParams } from '../types/video';
-import videoData from '../data/warroom-videos.json';
+import videoData from '@shared/data/videos/warroom-videos.json';
 
 export async function searchVideos(params: VideoSearchParams): Promise<{
   videos: WarRoomVideo[];

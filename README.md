@@ -1,26 +1,26 @@
-# Natalie G. Winters Multi-Site Project
+# Natalie Winters Multi-Site Project
 
-A Next.js-based multi-site project consisting of three interconnected websites:
-1. Main Site (nataliegwinters.com)
-2. Business Directory (biz.nataliegwinters.com)
-3. News Coverage (news.nataliegwinters.com)
+This repository contains three Next.js sites sharing common components and styles:
+
+1. Main Site (Port 3000) - Primary website
+2. Business Directory (Port 3001) - Business listings and search
+3. News Site (Port 3002) - News and video content
 
 ## Project Structure
 
 ```
-src/
-├── shared/                 # Shared components and utilities
-│   ├── components/        # Reusable React components
-│   │   ├── Layout.tsx    # Main layout wrapper
-│   │   ├── Navigation.tsx # Site navigation
-│   │   └── Footer.tsx    # Site footer
-│   └── layouts/          # Root layouts
-│       └── RootLayout.tsx # Base HTML structure
-│
-└── sites/                # Individual site implementations
-    ├── main-natalie/     # Main site
-    ├── biz-natalie/      # Business directory
-    └── news-natalie/     # News coverage
+natalie-winters/
+├── package.json              # Root package.json with workspace config
+├── src/
+│   ├── shared/              # Shared components, styles, and utilities
+│   │   ├── components/      # Reusable React components
+│   │   ├── styles/         # Global styles and CSS
+│   │   ├── layouts/        # Common layout components
+│   │   └── utils/          # Shared utility functions
+│   └── sites/
+│       ├── main-natalie/   # Main site (port 3000)
+│       ├── biz-natalie/    # Business site (port 3001)
+│       └── news-natalie/   # News site (port 3002)
 ```
 
 ## Technology Stack
@@ -46,80 +46,26 @@ git clone https://github.com/meeeeeooooowwwwwww/natalie-winters.git
 cd natalie-winters
 ```
 
-2. Install dependencies for all sites:
+2. Install dependencies:
 ```bash
-cd src/sites/main-natalie && npm install
-cd ../biz-natalie && npm install
-cd ../news-natalie && npm install
+npm install
 ```
 
 ### Development
 
-Each site runs on its own port:
-- Main site: http://localhost:3000
-- Business site: http://localhost:3001
-- News site: http://localhost:3002
+Run development servers:
 
-To start development servers:
-
-1. Main site:
+All sites:
 ```bash
-cd src/sites/main-natalie
-npm run dev
+npm run dev:all
 ```
 
-2. Business site:
+Individual sites:
 ```bash
-cd src/sites/biz-natalie
-npm run dev
+npm run main:dev  # Main site on port 3000
+npm run biz:dev   # Business site on port 3001
+npm run news:dev  # News site on port 3002
 ```
-
-3. News site:
-```bash
-cd src/sites/news-natalie
-npm run dev
-```
-
-## Site-Specific Features
-
-### Main Site (Port 3000)
-- Landing page with links to other sections
-- Blue color scheme
-- Business directory integration
-- News coverage integration
-
-### Business Directory (Port 3001)
-- Business listings
-- Search functionality
-- Categories
-- Green color scheme
-
-### News Coverage (Port 3002)
-- Video content
-- News articles
-- Categories
-- Purple color scheme
-
-## Shared Components
-
-### Layout
-The shared Layout component provides:
-- Consistent navigation
-- Site-specific color schemes
-- Footer
-- Responsive design
-
-### Navigation
-- Site-specific navigation items
-- Color-coded based on site
-- Mobile-responsive menu
-- Active state indicators
-
-### Footer
-- Consistent across all sites
-- Quick links
-- Social media links
-- Copyright information
 
 ## Development Workflow
 
@@ -135,26 +81,25 @@ The shared Layout component provides:
 4. Push to feature branch
 5. Create pull request to `natalie-winters-dev`
 
-### Testing
-- Test changes across all three sites
-- Verify responsive design
-- Check cross-browser compatibility
-- Ensure shared components work correctly
+## Shared Resources
 
-## Build and Deployment
+- Components in `src/shared/components/` are available to all sites
+- Global styles in `src/shared/styles/` apply across all sites
+- Common utilities in `src/shared/utils/` can be imported by any site
 
-### Production Build
-For each site:
+## Building for Production
+
+Build all sites:
 ```bash
-npm run build
-npm run start
+npm run build:all
 ```
 
-### Environment Variables
-Required environment variables for each site:
-- `NEXT_PUBLIC_SITE_URL`
-- `NEXT_PUBLIC_SITE_NAME`
-- `NEXT_PUBLIC_SITE_DESCRIPTION`
+Or build individual sites:
+```bash
+npm run main:build
+npm run biz:build
+npm run news:build
+```
 
 ## Common Issues and Solutions
 

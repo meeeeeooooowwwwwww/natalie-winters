@@ -45,35 +45,20 @@ src/sites/*/.env*
 src/sites/*/out/
 
 # Python
+.venv/
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# Virtual Environment
+.env 
 venv/
-env/
-ENV/
-.env
-.venv
 **/venv/
-**/env/
+**/chat-ui/venv/
+
+# Chat UI development
+/chat-ui/ 
+**/chat-ui/
 
 # Node
 node_modules/

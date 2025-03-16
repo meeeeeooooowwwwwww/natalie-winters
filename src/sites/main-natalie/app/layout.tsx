@@ -1,5 +1,6 @@
-import '@shared/styles/globals.css'
+import './globals.css'
 import type { Metadata } from 'next'
+import Layout from '@shared/components/Layout'
 import RootLayout from '@shared/layouts/RootLayout'
 
 export const metadata: Metadata = {
@@ -39,7 +40,9 @@ export default function MainLayout({
       metadata={metadata}
       analytics={{ googleAnalyticsId: 'G-RPYVDP2KGZ' }}
     >
-      {children}
+      <Layout siteTitle="Natalie G. Winters" siteColor="blue">
+        {children}
+      </Layout>
     </RootLayout>
   )
 } 

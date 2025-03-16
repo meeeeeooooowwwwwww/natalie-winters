@@ -23,32 +23,63 @@ natalie-winters/
 │       └── news-natalie/   # News site (port 3002)
 ```
 
+## Technology Stack
+
+- **Framework**: Next.js 14.2.24
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Development**: Node.js >=18.0.0
+
 ## Getting Started
 
-1. Install dependencies:
+### Prerequisites
+
+- Node.js >=18.0.0
+- npm or yarn package manager
+- Git
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/meeeeeooooowwwwwww/natalie-winters.git
+cd natalie-winters
+```
+
+2. Install dependencies:
 ```bash
 npm install
 ```
 
-2. Run development servers:
+### Development
 
-- All sites:
+Run development servers:
+
+All sites:
 ```bash
 npm run dev:all
 ```
 
-- Individual sites:
+Individual sites:
 ```bash
 npm run main:dev  # Main site on port 3000
 npm run biz:dev   # Business site on port 3001
 npm run news:dev  # News site on port 3002
 ```
 
-## Development
+## Development Workflow
 
-- `main` branch contains production code
-- `development` branch for active development
-- Create feature branches from `development` for new features
+### Branch Structure
+- `main`: Production branch
+- `natalie-winters-dev`: Development branch
+- Feature branches should be created from `natalie-winters-dev`
+
+### Making Changes
+1. Create a feature branch from `natalie-winters-dev`
+2. Make changes and test locally
+3. Commit changes with descriptive messages
+4. Push to feature branch
+5. Create pull request to `natalie-winters-dev`
 
 ## Shared Resources
 
@@ -69,3 +100,29 @@ npm run main:build
 npm run biz:build
 npm run news:build
 ```
+
+## Common Issues and Solutions
+
+### Port Already in Use
+If you see `EADDRINUSE` errors:
+1. Check for running Node.js processes
+2. Kill the process using the port
+3. Restart the development server
+
+### Shared Component Updates
+When updating shared components:
+1. Update the component in `src/shared/components`
+2. Test across all sites
+3. Rebuild all sites if necessary
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+This project is proprietary and confidential. All rights reserved.

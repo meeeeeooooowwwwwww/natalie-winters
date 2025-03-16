@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop, parent-dev, biz-dev, news-dev ]
+  pull_request:
+    branches: [ main, develop, parent-dev, biz-dev, news-dev ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        site: [parent-site, biz-site, news-site]
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build site
+      run: |
+        cd src/sites/${{ matrix.site }}
+        npm run build
+        
+    - name: Run tests
+      run: |
+        cd src/sites/${{ matrix.site }}
+        npm test 

@@ -1,0 +1,7 @@
+.placeholder {
+  display: block;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 4px;
+  overflow: hidden;
+} 

@@ -1,0 +1,169 @@
+It looks like you're working on a multi-site project with a parent folder (C:\parent-natalie) containing three Next.js websites (biz-natalie, news-natalie, main-natalie), each running on separate local ports (3000, 3001, 3002). You want them to share CSS and resources from the parent folder, but you're hitting issues: localhost:3000 shows an "Internal Server Error," while 3001 and 3002 fail with a build error due to Cannot find module 'tailwindcss'. Let’s break this down and fix it, addressing both the structure and the errors.
+Project Structure Goal
+You want:
+Parent Folder (C:\parent-natalie): Holds shared resources (e.g., CSS, Tailwind config).
+
+Child Sites: biz-natalie (port 3000), news-natalie (3001), main-natalie (3002), each a Next.js app sharing those resources.
+
+Shared CSS: Likely MainContent.module.css in ../../shared/styles/ (relative to each site), relying on TailwindCSS.
+
+Claude’s setup, where the parent "needs to be started," might imply a monorepo with a shared dev server or a dependency on the parent for building, but the errors suggest a misconfiguration. We’ll aim for independent Next.js apps that share resources without requiring the parent to run as its own server.
+Diagnosing the Errors
+1. localhost:3000 - "Internal Server Error"
+This is biz-natalie. An "Internal Server Error" (HTTP 500) in Next.js usually means the app started but crashed during runtime (e.g., a missing module at runtime, not build time).
+
+Possible cause: It’s trying to use TailwindCSS (from MainContent.module.css), but Tailwind isn’t properly installed or configured.
+
+2. localhost:3001 and 3002 - "Build Error: Cannot find module 'tailwindcss'"
+These are news-natalie and main-natalie. The error:
+
+Error: Cannot find module 'tailwindcss'
+../../shared/styles/MainContent.module.css
+
+indicates that during the Next.js build process (next dev), Webpack can’t find the tailwindcss module in these sites’ node_modules.
+
+The stack trace points to C:\parent-natalie\src\sites\biz-site\node_modules\next\..., but the error is logged for 3001 and 3002, suggesting either:
+A typo in your description (this is actually biz-site’s error), or
+
+All three sites share the issue, but 3000 gets past build and fails at runtime.
+
+3. TailwindCSS Issue
+MainContent.module.css likely uses Tailwind directives (e.g., @tailwind base;), but tailwindcss isn’t installed or linked correctly in each site’s node_modules.
+
+The path ../../shared/styles/MainContent.module.css implies it’s in C:\parent-natalie\shared\styles\, outside each site’s root, which is fine if properly imported, but Next.js needs Tailwind configured locally.
+
+Fixing the Setup
+Project Structure
+Assuming this (adjust if different):
+
+C:\parent-natalie\
+├── shared\
+│   ├── styles\
+│   │   └── MainContent.module.css  <- Shared CSS with Tailwind
+│   └── tailwind.config.js          <- Shared Tailwind config
+├── src\
+│   ├── sites\
+│   │   ├── biz-site\              <- Port 3000
+│   │   ├── news-site\             <- Port 3001
+│   │   └── main-site\             <- Port 3002
+
+Step 1: Install TailwindCSS in Each Site
+The Cannot find module 'tailwindcss' error means Tailwind isn’t in each site’s node_modules. Even with a shared config, Next.js requires tailwindcss as a dependency in each project for Webpack to process it.
+For Each Site:
+
+cd C:\parent-natalie\src\sites\biz-site
+npm install tailwindcss postcss autoprefixer
+cd ..\news-site
+npm install tailwindcss postcss autoprefixer
+cd ..\main-site
+npm install tailwindcss postcss autoprefixer
+
+Assumes you’re using npm (use yarn add or pnpm add if preferred).
+
+Installs TailwindCSS and its dependencies.
+
+Step 2: Configure Tailwind in Each Site
+Each site needs a postcss.config.js and a reference to the shared tailwind.config.js.
+Create postcss.config.js in each site (e.g., C:\parent-natalie\src\sites\biz-site\postcss.config.js):
+javascript
+
+module.exports = {
+  plugins: {
+    tailwindcss: { config: '../../../shared/tailwind.config.js' },
+    autoprefixer: {},
+  },
+};
+
+Repeat for news-site and main-site.
+
+../../../shared/tailwind.config.js points to the shared config relative to each site.
+
+Shared tailwind.config.js (in C:\parent-natalie\shared\):
+javascript
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    '../src/sites/**/*.{js,ts,jsx,tsx}', // Scans all sites for Tailwind classes
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+};
+
+Adjust content to match your file structure (e.g., if pages are in src/sites/biz-site/pages/).
+
+Step 3: Verify Shared CSS Usage
+Ensure MainContent.module.css is correctly imported:
+Example in biz-site (e.g., C:\parent-natalie\src\sites\biz-site\pages\index.js):
+javascript
+
+import styles from '../../../shared/styles/MainContent.module.css';
+
+export default function Home() {
+  return <div className={styles.mainContent}>Hello</div>;
+}
+
+Check MainContent.module.css (e.g., C:\parent-natalie\shared\styles\MainContent.module.css):
+css
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.mainContent {
+  @apply text-lg font-bold;
+}
+
+Must use Tailwind directives (@tailwind) or classes (@apply).
+
+Step 4: Set Ports and Start Servers
+Claude’s setup might run the parent as a monorepo orchestrator, but for independent servers:
+Edit package.json in each site:
+biz-site:
+json
+
+"scripts": {
+  "dev": "next dev -p 3000"
+}
+
+news-site:
+json
+
+"scripts": {
+  "dev": "next dev -p 3001"
+}
+
+main-site:
+json
+
+"scripts": {
+  "dev": "next dev -p 3002"
+}
+
+Start Each Site:
+
+cd C:\parent-natalie\src\sites\biz-site
+npm run dev
+
+(Repeat in separate terminals for news-site and main-site.)
+
+Step 5: Test the Fix
+Open:
+http://localhost:3000 (biz-site)
+
+http://localhost:3001 (news-site)
+
+http://localhost:3002 (main-site)
+
+If Tailwind is working, styles from MainContent.module.css should apply.
+
+Addressing "Parent Needs to Start"
+If Claude set up a monorepo where the parent runs all sites (e.g., via npm run dev in C:\parent-natalie), the parent’s package.json might have:
+json
+
+"scripts": {
+  "dev": "npm run dev --prefix src/sites/biz-site & npm run dev --prefix src/sites/news-site & npm run dev --prefix src/sites/main-site"
+}
+

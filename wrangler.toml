@@ -1,10 +1,9 @@
+# Wrangler configuration for Cloudflare Pages
 name = "natalie-winters"
 compatibility_date = "2024-03-16"
 
 [build]
 command = "cd src/sites/main-natalie && npm install --legacy-peer-deps && npm run build && npx @cloudflare/next-on-pages@1"
-output_directory = "dist"
-base_directory = "."
 pages_build_output_dir = "src/sites/main-natalie/.vercel/output/static"
 
 [build.environment]

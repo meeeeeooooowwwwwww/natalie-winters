@@ -1,8 +1,8 @@
 const environments = require('./environments');
+const path = require('path');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['@parent-natalie/shared'],
   experimental: {
     externalDir: true,
   },
@@ -64,7 +64,9 @@ const nextConfig = {
     // Handle shared components and utilities
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@shared': path.resolve(__dirname, '../src/shared'),
+      '@shared': path.resolve(__dirname, '../components'),
+      '@config': path.resolve(__dirname, '../config'),
+      '@utils': path.resolve(__dirname, '../utils'),
     }
     return config
   },

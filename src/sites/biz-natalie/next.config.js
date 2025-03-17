@@ -15,7 +15,13 @@ const nextConfig = {
     externalDir: true,
   },
   distDir: '.next',
-  output: 'standalone',
+  output: 'export',
+  images: {
+    unoptimized: true,
+  },
+  trailingSlash: true,
+  // Ensure each site works as a standalone static site
+  basePath: process.env.NODE_ENV === 'production' ? '/biz' : '',
 }
 
 module.exports = nextConfig; 

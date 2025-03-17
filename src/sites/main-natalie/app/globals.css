@@ -2,13 +2,99 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@layer base {
+  :root {
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 219, 234, 254;
+    --background-end-rgb: 255, 255, 255;
+  }
+
+  body {
+    @apply min-h-screen bg-gray-50;
+    color: rgb(var(--foreground-rgb));
+  }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-end-rgb));
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+@layer utilities {
+  .aspect-w-16 {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+.glitch-text {
+  text-shadow: 
+    0.05em 0 0 rgba(59, 130, 246, 0.75),
+    -0.025em -0.05em 0 rgba(37, 99, 235, 0.75),
+    0.025em 0.05em 0 rgba(29, 78, 216, 0.75);
+  animation: glitch 500ms infinite;
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: 
+      0.05em 0 0 rgba(59, 130, 246, 0.75),
+      -0.025em -0.05em 0 rgba(37, 99, 235, 0.75),
+      0.025em 0.05em 0 rgba(29, 78, 216, 0.75);
+  }
+  14% {
+    text-shadow: 
+      0.05em 0 0 rgba(59, 130, 246, 0.75),
+      -0.025em -0.05em 0 rgba(37, 99, 235, 0.75),
+      0.025em 0.05em 0 rgba(29, 78, 216, 0.75);
+  }
+  15% {
+    text-shadow: 
+      -0.05em -0.025em 0 rgba(59, 130, 246, 0.75),
+      0.025em 0.025em 0 rgba(37, 99, 235, 0.75),
+      -0.05em -0.05em 0 rgba(29, 78, 216, 0.75);
+  }
+  49% {
+    text-shadow: 
+      -0.05em -0.025em 0 rgba(59, 130, 246, 0.75),
+      0.025em 0.025em 0 rgba(37, 99, 235, 0.75),
+      -0.05em -0.05em 0 rgba(29, 78, 216, 0.75);
+  }
+  50% {
+    text-shadow: 
+      0.025em 0.05em 0 rgba(59, 130, 246, 0.75),
+      0.05em 0 0 rgba(37, 99, 235, 0.75),
+      0 -0.05em 0 rgba(29, 78, 216, 0.75);
+  }
+  99% {
+    text-shadow: 
+      0.025em 0.05em 0 rgba(59, 130, 246, 0.75),
+      0.05em 0 0 rgba(37, 99, 235, 0.75),
+      0 -0.05em 0 rgba(29, 78, 216, 0.75);
+  }
+  100% {
+    text-shadow: 
+      -0.025em 0 0 rgba(59, 130, 246, 0.75),
+      -0.025em -0.025em 0 rgba(37, 99, 235, 0.75),
+      -0.025em -0.05em 0 rgba(29, 78, 216, 0.75);
+  }
+}
+
+.pulse-animation {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+  }
 } 

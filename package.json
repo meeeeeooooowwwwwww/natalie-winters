@@ -7,35 +7,33 @@
   ],
   "description": "Multi-site Next.js Project",
   "engines": {
-    "node": "18.19.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
-    "main:dev": "cd src/sites/main-natalie && next dev -p 3000",
-    "main:build": "cd src/sites/main-natalie && next build",
-    "main:start": "cd src/sites/main-natalie && next start -p 3000",
-    "biz:dev": "cd src/sites/biz-natalie && next dev -p 3001",
-    "biz:build": "cd src/sites/biz-natalie && next build",
-    "biz:start": "cd src/sites/biz-natalie && next start -p 3001",
-    "news:dev": "cd src/sites/news-natalie && next dev -p 3002",
-    "news:build": "cd src/sites/news-natalie && next build",
-    "news:start": "cd src/sites/news-natalie && next start -p 3002",
     "dev:all": "concurrently \"npm run main:dev\" \"npm run biz:dev\" \"npm run news:dev\"",
-    "build:all": "npm run main:build && npm run biz:build && npm run news:build",
-    "lint": "next lint"
+    "main:dev": "cd src/sites/main-natalie && next dev -p 3000",
+    "biz:dev": "cd src/sites/biz-natalie && next dev -p 3001",
+    "news:dev": "cd src/sites/news-natalie && next dev -p 3002",
+    "build": "npm run build:all",
+    "build:all": "npm run build:main && npm run build:biz && npm run build:news && npm run merge-outputs",
+    "build:main": "cd src/sites/main-natalie && npm install && npm run build",
+    "build:biz": "cd src/sites/biz-natalie && npm install && npm run build",
+    "build:news": "cd src/sites/news-natalie && npm install && npm run build",
+    "merge-outputs": "mkdir -p dist && cp -r src/sites/main-natalie/out/* dist/ && cp -r src/sites/biz-natalie/out dist/biz && cp -r src/sites/news-natalie/out dist/news"
   },
   "dependencies": {
     "concurrently": "^8.2.2",
     "next": "14.2.24",
-    "react": "19.0.0",
-    "react-dom": "19.0.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "autoprefixer": "10.4.21",
-    "postcss": "8.5.3",
-    "tailwindcss": "4.0.14",
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
 }

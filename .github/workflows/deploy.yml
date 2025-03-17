@@ -1,0 +1,56 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - main
+      - natalie-winters-dev
+  pull_request:
+    branches:
+      - main
+      - natalie-winters-dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy
+    environment:
+      name: ${{ github.ref == 'refs/heads/main' && 'Production' || 'Development' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build All Sites
+        run: npm run build:all
+        env:
+          NODE_ENV: ${{ github.ref == 'refs/heads/main' && 'production' || 'development' }}
+
+      - name: Deploy Main Site
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy src/sites/main-natalie/.next --project-name=main-natalie
+
+      - name: Deploy Business Site
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy src/sites/biz-natalie/.next --project-name=biz-natalie
+
+      - name: Deploy News Site
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy src/sites/news-natalie/.next --project-name=news-natalie 

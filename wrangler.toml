@@ -1,8 +1,14 @@
+# Wrangler configuration for Cloudflare Pages
+name = "natalie-winters"
+compatibility_date = "2024-03-16"
+
 [build]
-command = "npm run build"
+command = "cd src/sites/main-natalie && npm install --legacy-peer-deps && npm run build && npx @cloudflare/next-on-pages@1"
+pages_build_output_dir = "src/sites/main-natalie/.vercel/output/static"
 
 [build.environment]
 NODE_VERSION = "18"
+NPM_VERSION = "9"
 
 # Configure edge runtime
 compatibility_date = "2024-03-14"
@@ -13,7 +19,8 @@ pattern = "/*"
 zone_name = "business.nataliegwinters.com"
 
 [site]
-bucket = ".next"
+bucket = "src/sites/main-natalie/.vercel/output/static"
+entry-point = "workers-site"
 
 # Required for Cloudflare Pages
 [build.upload]
@@ -21,5 +28,29 @@ format = "service-worker"
 dir = ".next"
 main = ".next/worker.js"
 
-# Specify the build output directory
-pages_build_output_dir = ".next" 
+# Enable caching
+[cache]
+caching = true
+cache_everything = true
+cache_by_device_type = true
+browser_ttl = 30
+edge_ttl = 1800
+
+# Security headers
+[headers]
+X-Frame-Options = "DENY"
+X-Content-Type-Options = "nosniff"
+X-XSS-Protection = "1; mode=block"
+Referrer-Policy = "strict-origin-when-cross-origin"
+Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline';"
+Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
+# Configure preview deployments
+[env.preview]
+name = "natalie-winters-preview"
+workers_dev = true
+
+# Configure production deployments
+[env.production]
+name = "natalie-winters"
+workers_dev = true 

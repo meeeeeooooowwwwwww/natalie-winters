@@ -1,0 +1,124 @@
+# Multi-site Next.js Project Configuration Guide
+# Natalie Winters Project - Development and Production Setup
+
+## Project Overview
+This project consists of three Next.js sites:
+1. Main Site (www.nataliegwinters.com)
+2. Business Site (business.nataliegwinters.com)
+3. News Site (news.nataliegwinters.com)
+
+## Local Development
+- All sites run concurrently using `npm run dev:all`
+- Port configuration:
+  - Main site: localhost:3000
+  - Business site: localhost:3001
+  - News site: localhost:3002
+
+## Configuration Files Structure
+1. environments.js (config/environments.js)
+   - Manages URLs and configurations for both development and production
+   - Separate configurations for each site
+   - Environment-specific API endpoints
+
+2. Cloudflare Configuration (wrangler.*.toml)
+   - Separate configurations for each site
+   - Edge runtime enabled
+   - Custom domain routing
+   - Build output directories configured
+
+3. Next.js Configuration (config/next.config.js)
+   - Environment handling
+   - Security headers
+   - Edge runtime configuration
+   - Cross-site API routing
+   - Shared component transpilation
+   - Webpack aliases for shared resources
+
+4. GitHub Actions Workflow (.github/workflows/deploy.yml)
+   - Automated deployment pipeline
+   - Environment-based deployment (dev/prod)
+   - Separate deployments for each site
+   - Cloudflare Pages integration
+
+## Deployment Process
+1. Development Deployment
+   - Push to 'natalie-winters-dev' branch
+   - Automatically deploys to development environment
+   - Uses development URLs and configurations
+
+2. Production Deployment
+   - Push to 'main' branch
+   - Automatically deploys to production environment
+   - Uses production URLs and custom domains
+
+## Cloudflare Setup Requirements
+1. Pages Projects:
+   - main-natalie
+   - biz-natalie
+   - news-natalie
+
+2. Custom Domains Configuration:
+   - www.nataliegwinters.com → main-natalie
+   - business.nataliegwinters.com → biz-natalie
+   - news.nataliegwinters.com → news-natalie
+
+3. Required Environment Variables:
+   - CLOUDFLARE_API_TOKEN
+   - CLOUDFLARE_ACCOUNT_ID
+
+## Security Configurations
+- DNS Prefetch Control enabled
+- Strict Transport Security
+- Frame options set to SAMEORIGIN
+- Content Type Options nosniff
+- Referrer Policy configured
+- Edge runtime enabled for better security and performance
+
+## Workspace Structure
+/parent-natalie
+├── src/
+│   └── sites/
+│       ├── main-natalie/
+│       ├── biz-natalie/
+│       └── news-natalie/
+├── config/
+│   ├── environments.js
+│   └── next.config.js
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
+└── wrangler.*.toml
+
+## Common Commands
+1. Local Development:
+   ```bash
+   npm run dev:all          # Run all sites
+   npm run main:dev         # Run main site only
+   npm run biz:dev          # Run business site only
+   npm run news:dev         # Run news site only
+   ```
+
+2. Building:
+   ```bash
+   npm run build:all        # Build all sites
+   npm run main:build       # Build main site
+   npm run biz:build        # Build business site
+   npm run news:build       # Build news site
+   ```
+
+## Troubleshooting
+1. Local Development:
+   - Check port availability (3000, 3001, 3002)
+   - Verify NODE_ENV is set correctly
+   - Ensure all dependencies are installed
+
+2. Deployment:
+   - Verify Cloudflare credentials
+   - Check GitHub Actions logs
+   - Validate custom domain configurations
+
+## Notes
+- Always work in the 'natalie-winters-dev' branch for development
+- Test all sites locally before pushing to main
+- Monitor Cloudflare Pages deployments in dashboard
+- Keep environment variables synchronized across all platforms 

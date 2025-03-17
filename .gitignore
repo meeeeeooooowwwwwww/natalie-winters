@@ -99,3 +99,7 @@ src/sites/main-natalie/venv/
 .pytest_cache/
 .coverage
 coverage/
+
+# Documentation files
+GROK_Response..txt
+deployment_issue.txt
